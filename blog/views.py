@@ -133,11 +133,6 @@ def buscar(request):
         return HttpResponse(mensaje)
 
 
-def tienda(request):
-    productos = Producto.objects.all()
-    context = {'productos': productos}
-    return render(request, 'tienda.html', context)
-
 @user_passes_test(lambda u:u.is_superuser,login_url=('iniciarsesion')) 
 def crear_producto(request):
     if request.method == 'POST':
