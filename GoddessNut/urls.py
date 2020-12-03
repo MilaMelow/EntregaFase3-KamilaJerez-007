@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from blog.views import index, productos, estilo, contacto, registrar, listado_productos, nuevo_producto, buscar_producto, buscar, iniciarsesion, cerrarsesion
+from blog.views import index, productos, contacto, registrar, listado_productos, nuevo_producto, buscar_producto, buscar, iniciarsesion, cerrarsesion
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -27,7 +27,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('productos/', productos, name='productos'),
-    path('estilo/', estilo, name='estilo'),
     path('contacto/', contacto, name='contacto'),
     path('listado-productos/', listado_productos, name='listado_productos'),
     path('nuevo-producto/', nuevo_producto, name= 'nuevo_producto'),
