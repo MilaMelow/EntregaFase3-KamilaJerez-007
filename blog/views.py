@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from .models import *
 from .forms import  ContactoForm, ProductoForm, CreateUserForm
 from django import forms
@@ -15,9 +15,14 @@ from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 
 
+from django.contrib.auth.decorators import user_passes_test
+
 # Create your views here.
 def index(request):
-    return render(request, "index.html")
+    # STock mayor a 0 
+    productos = Producto.objects.filter(stock__gt=0)
+    context = {'productos':productos}
+    return render(request, "index.html",context)
 
 @login_required(login_url='iniciarsesion')
 
@@ -132,4 +137,83 @@ def tienda(request):
     productos = Producto.objects.all()
     context = {'productos': productos}
     return render(request, 'tienda.html', context)
+
+@user_passes_test(lambda u:u.is_superuser,login_url=('iniciarsesion')) 
+def crear_producto(request):
+    if request.method == 'POST':
+        producto = Producto()
+        producto.nombreProducto =  request.POST.get('nombre_producto')
+        producto.precio =  request.POST.get('precio_producto')
+        producto.stock =  request.POST.get('stock_producto')
+        producto.descripcion =  request.POST.get('descripcion_producto')
+        producto.imagen =  request.FILES.get('imagen_producto')
+        if request.FILES.get('imagen_producto') == None:
+            # messages.error(request,'Verifique los campos porfavor')
+            print('ERRORRR ')
+            return redirect(request.resolver_match.url_name)
+        try:
+            print('PRODUCTO CREADO')
+            producto.save()
+            messages.success(request,'Producto creado con exito!!')
+            return redirect(request.resolver_match.url_name)
+        except Exception as err:
+            print(err)
+            messages.error(request,'No se pudo crear el producto')
+            return redirect(request.resolver_match.url_name)
+      
+    return render(request,'crear_producto.html')
+
+@user_passes_test(lambda u:u.is_superuser,login_url=('iniciarsesion')) 
+def modificar_producto(request,id):
+
+    producto_principal = get_object_or_404(Producto,id=id)
+    if request.method == 'POST':
+        producto = Producto()
+        producto.id = request.POST.get('id_producto')
+        producto.nombreProducto =  request.POST.get('nombre_producto')
+        producto.precio =  request.POST.get('precio_producto')
+        producto.stock =  request.POST.get('stock_producto')
+        producto.descripcion =  request.POST.get('descripcion_producto')
+   
+        if request.FILES.get('imagen_producto') == None:
+            producto.imagen =  producto_principal.imagen
+            
+         
+        else:
+            producto.imagen = request.FILES.get('imagen_producto')
+   
+
+            
+        try:
+        
+            producto.save()
+            messages.success(request,'Producto modifcado con exito!!')
+            return redirect(request.resolver_match.url_name,id=id)
+        except Exception as err:
+            messages.error(request,'No se pudo crear el producto')
+            print(err)
+            return redirect(request.resolver_match.url_name,id=o)
+
+    context = {'producto':producto_principal}
+
+    return render(request,'modificar_producto.html',context)
+
+def detalle_producto(request,id):
+    producto = get_object_or_404(Producto,id=id)
+
+    context = {'producto':producto}
+
+    return render(request,'detalle_producto.html',context)
+
+@user_passes_test(lambda u:u.is_superuser,login_url=('iniciarsesion')) 
+def eliminar_producto(request,id):
+    producto = get_object_or_404(Producto,id=id)
+    try:
+        producto.delete()
+        messages.success(request,'Producto eliminado con exito!!!')
+    except Exception as err:
+        print('Error',err)
+        messages.error(request,'No se pudo eliminar el producto')
+
+    return redirect('index')
 

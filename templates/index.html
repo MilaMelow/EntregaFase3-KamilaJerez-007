@@ -14,199 +14,72 @@
         </div>
     </section>
     
- <!-----Coleccion------>
- <section class="seccion coleccion">
-    <div class="collection__container bd-grid">
-        <div class="collection__box"> 
-            <img src="{% static 'img/Ropa/ropita6.PNG' %}" alt="" class="collection__img">
-
-            <div class="collection__data">
-                <h2 class="collection__title"><span class="collection_subtitle">Ropa</span><br>Mujer</h2>
-                <a href="#" class="collection__view">Ver colección</a>
-            </div>
-        </div>
-
-        <div class="collection__box"> 
-            <img src="{% static 'img/Lenceria/l6.PNG' %}" alt="" class="collection__img">
-
-            <div class="collection__data">
-                <h2 class="collection__title"><span class="collection_subtitle">Lenceria</span><br>Mujer</h2>
-                <a href="#" class="collection__view">Ver colección</a>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-----Productos Destacados------->
+{% if messages %}
+{% for message in messages  %}
+  
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+  {{ message  }}
+</div>
+ {% else  %}
+ <div class="alert alert-success" role="alert">
+  {{ message  }}
+</div>
+{% endif %}
+{% endfor %}
+
+
 <section class="seccion-destacados" id="destacados">
-    <h2 class="section-title">Productos Destacados</h2>
-    <a href="#" class="section-all">Ver todo</a>
+    <h2 class="section-title">Productos</h2>
+    
+
+  {% endif %}
 
     <div class="destacados__container bd-grid">
+        {% for producto in productos  %}
         <div class="productos__destacados">  
             <div class="destacados__box"> 
-                <div class="nuevos__destacados">Nuevo</div>
-                <img src="{% static 'img/Lenceria/l5.PNG' %}" alt="" class="destacados_img">
+                {%  if user.is_superuser %}
+                <a href="{% url 'Modificar producto' producto.id %}">
+                <div class="nuevos__destacados">Modificar </a></div>
+                 </a>
+                {% endif %}
+                <a href="{% url 'Detalle producto' producto.id %}"> 
+                    {% if producto.imagen %}
+
+                    <img
+                      src="{{  producto.imagen.url }}"
+                      alt="imagen {{ producto.nombreProducto }}"
+                    />
+                    {% else %}
+                    <img
+                      src="{% static 'img/default.jpg' %}"
+                      alt="imagen default {{ producto.nombreProducto }}"
+                    />
+                    {% endif %}
+                </a>
+             
+
+                
             </div>
 
             <div class="destacados__data">
-                <h3 class="destacados__name">Conjunto Rosa</h3>
-                <span class="destacados__preci">$6.999</span>
+                <h3 class="destacados__name">  {{ producto.nombreProducto }}</h3>
+                <span class="destacados__preci">$ {{ producto.precio }}</span>
             </div>
         </div>
+        {% endfor %}
+        
 
-        <div class="productos__destacados">
-            <div class="destacados__box"> 
-                <div class="nuevos__destacados">Nuevo</div>
-                <img src="{% static 'img/Lenceria/l2.PNG' %}" alt="" class="destacados__img">
-            </div>
-
-            <div class="destacados__data">
-                <h3 class="destacados__name">Body Negro Encaje</h3>
-                <span class="destacados__preci">$9.999</span>
-            </div>
-        </div>
-
-        <div class="productos__destacados"> 
-            <div class="destacados__box"> 
-                <div class="nuevos__destacados">Nuevo</div>
-                <img src="{% static 'img/Lenceria/l4.PNG' %} " alt="" class="destacados__img">
-            </div>
-
-            <div class="destacados__data">
-                <h3 class="destacados__name">Body Rojo</h3>
-                <span class="destacados__preci">$11.999</span>
-            </div>
-        </div>
-
-        <div class="productos__destacados"> 
-            <div class="destacados__box">
-                <div class="nuevos__destacados">Nuevo</div>
-                <img src="{% static 'img/Accesorios/a6.PNG' %}" alt="" class="destacados__img">
-            </div>
-
-            <div class="destacados__data">
-                <h3 class="destacados__name">Accesorios Varios</h3>
-                <span class="destacados__preci">$2.590</span>
-            </div>
-        </div>
-
-        <div class="productos__destacados">
-            <div class="destacados__box">
-                <div class="nuevos__destacados">Nuevo</div>
-                <img src="{% static 'img/Accesorios/a7.PNG' %}" alt="" class="destacados__img">
-            </div>
-
-            <div class="destacados__data">
-                <h3 class="destacados__name">Accesorios Varios</h3>
-                <span class="destacados__preci">$8.590</span>
-            </div>
-        </div>
-
-        <div class="productos__destacados">
-            <div class="destacados__box">
-                <div class="nuevos__destacados">Nuevo</div>
-                <img src="{% static 'img/Accesorios/a4.PNG' %}" alt="" class="destacados__img">
-            </div>
-
-            <div class="destacados__data">
-                <h3 class="destacados__name">Accesorios Varios</h3>
-                <span class="destacados__preci">$1.890</span>
-            </div>
-        </div>
     </div>
 </section>
 
 <!-------Ofertas-------->
-<section class="seccion-oferta">
-    <div class="oferta__bg">
-        <div class="oferta__data">
-            <h2 class="oferta__title">Ofertas Especiales</h2>
-            <p class="descripcion__oferta">Descuentos especiales por la primera compra</p>
 
-            <a href="#" class="button-comprar">Comprar</a>
-        </div>
-    </div>
-</section>
 
-<!-------Recién Llegados-------->
-<section class="nuevo-seccion" id="nuevo">
-    <h2 class="seccion-title">Recien Llegados</h2>
-
-    <div class="nuevo__container bd-grid"> 
-        <div class="nuevo__box">
-            <img src="{% static 'img/Ropa/ropita6.PNG' %}" alt="" class="nuevo__img">
-
-            <div class="nuevo__link">
-                <a href="#" class="button">Ver Producto</a>
-            </div>
-        </div>
-
-        <div class="nuevo__box">
-            <img src="{% static 'img/Ropa/ropita5.PNG' %}" alt="" class="nuevo__img">
-
-            <div class="nuevo__link" >
-                <a href="#" class="button">Ver Producto</a>
-            </div>
-        </div>
-
-        <div class="nuevo__box">
-            <img src="{% static 'img/Ropa/ropita4.PNG' %}" alt="" class="nuevo__img">
-
-            <div class="nuevo__link">
-                <a href="#" class="button">Ver Producto</a>
-            </div>
-        </div>
-
-        <div class="nuevo__box">
-            <img src="{% static 'img/Ropa/ropita3.PNG' %}" alt="" class="nuevo__img">
-
-            <div class="nuevo__link">
-                <a href="#" class="button">Ver Producto</a>
-            </div>
-        </div>
-
-        <div class="nuevo__box">
-            <img src="{% static 'img/Ropa/ropita2.PNG' %}" alt="" class="nuevo__img">
-
-            <div class="nuevo__link">
-                <a href="#" class="button">Ver Producto</a>
-            </div>
-        </div>
-
-        <div class="nuevo__box">
-            <img src="{% static 'img/Ropa/ropita1.PNG' %}" alt="" class="nuevo_img">
-
-            <div class="nuevo__link">
-                <a href="#" class="button">Ver Producto</a>
-            </div>
-        </div>
-
-        <div class="nuevo__box">
-            <img src="{% static 'img/Ropa/ropita7.PNG' %}" alt="" class="nuevo__img">
-
-            <div class="nuevo__link">
-                <a href="#" class="button">Ver Producto</a>
-            </div>
-        </div>
-
-        <div class="nuevo__box">
-            <img src="{% static 'img/Ropa/ropita8.PNG' %}" alt="" class="nuevo__img">
-
-            <div class="nuevo__link">
-                <a href="#" class="button">Ver Producto</a>
-            </div>
-        </div>
-
-        <div class="nuevo__box">
-            <img src="{% static 'img/Ropa/ropita9.PNG' %}" alt="" class="nuevo__img">
-
-            <div class="nuevo__link">
-                <a href="#" class="button">Ver Producto</a>
-            </div>
-        </div>
-    </div>
-</section>
+<!
 {% endblock %}
 
 

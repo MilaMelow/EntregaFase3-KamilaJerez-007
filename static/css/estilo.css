@@ -1,6 +1,9 @@
 /*Google Font*/
 @import url('https://fonts.googleapis.com/css2?family=Kufam&display=swap');
 
+
+
+
 /*Variables CSS*/
 :root{
     --header-height: 3rem;
@@ -88,8 +91,10 @@ a{
 }
 
 img{
-    max-width: 100%;
-    height: auto;
+
+    width: 300px;
+    height:370px ;
+    object-fit: cover;
 }
 
 /*Clase CSS*/
@@ -127,6 +132,7 @@ top: 20px;
     grid-template-columns: 100%;
     grid-column-gap: 2rem;
     width: calc(100% - 3rem);
+    
     margin-left: var(--mb-3);
     margin-right: var(--mb-3);
 }
@@ -136,6 +142,7 @@ top: 20px;
     position: fixed;
     top: 0;
     left: 0;
+   
     z-index: var(--z-fixed);
     background-color: var(--pink-color);
 }
@@ -333,9 +340,9 @@ top: 20px;
     transition: .3s;
 }
 
-.productos__destacados:hover{
+/* .productos__destacados:hover{
     transform: translateY(-.5rem);
-}
+} */
 
 .destacados__box{
     position: relative;
@@ -364,6 +371,7 @@ top: 20px;
 }
 
 .destacados__name{
+    margin-top: 10px;
     margin-bottom: var(--mb-1);
     text-transform: uppercase;
     font-size: var(--normal-font-size);

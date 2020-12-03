@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from blog.views import index, productos, contacto, registrar, listado_productos, nuevo_producto, buscar_producto, buscar, iniciarsesion, cerrarsesion
+from blog.views import index, productos, contacto,crear_producto,detalle_producto,modificar_producto ,eliminar_producto   , registrar, listado_productos, nuevo_producto, buscar_producto, buscar, iniciarsesion, cerrarsesion
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -23,7 +23,6 @@ urlpatterns = [
     path('iniciarsesion/', iniciarsesion, name='iniciarsesion'),
     path('registrar/', registrar, name='registrar'),
     path('cerrarsesion/', cerrarsesion, name='cerrarsesion'),
-
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('productos/', productos, name='productos'),
@@ -32,6 +31,11 @@ urlpatterns = [
     path('nuevo-producto/', nuevo_producto, name= 'nuevo_producto'),
     path('buscar-producto/', buscar_producto, name='buscar_producto'),
     path('buscar/', buscar, name='buscar'),
+    path('crear_producto/',crear_producto,name="Crear producto"),
+    path('modificar_producto/<int:id>/',modificar_producto,name="Modificar producto"),
+    path('eliminar_producto/<int:id>/',eliminar_producto,name="Eliminar producto"),
+    path('detalle_producto/<int:id>/',detalle_producto,name="Detalle producto"),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

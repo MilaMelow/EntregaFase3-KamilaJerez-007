@@ -8,7 +8,8 @@
     <!-------Iconos-------->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
 
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
     <!---------CSS--------->
     <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
 
@@ -26,36 +27,38 @@
     }
 </style>
 
+<nav class="navbar navbar-expand-lg  navbar-light bg-light ">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">GoddessNut</a>
+  
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 
-    <!-------Header-------->
-<header class="uno-header"> 
-    <nav class="nav bd-grid">
-        <div>
-            <a href="#" class="nav__logo">GoddessNut</a>
-        </div>
+      
+        <li class="nav-item"><a href="{% url 'index' %}" class="nav-link   {% if request.resolver_match.url_name == 'index' %}active{% endif %}" >Productos</a></li>
+      
+        {% if user.is_superuser %}
+        <li class="nav-item"><a href="{% url 'Crear producto'  %}" class="nav-link  {% if request.resolver_match.url_name == 'Crear producto' %}active{% endif %}">Crear producto</a></li>
+        {% endif  %}
+        {% if user.is_anonymous %}
+        <li class="nav-item"><a href="{% url 'registrar' %}" class="nav-link {% if request.resolver_match.url_name == 'registrar' %}active{% endif %}">Registrarse</a></li>
+        <li class="nav-item"><a href="{% url 'iniciarsesion' %}" class="nav-link">Iniciar Sesión</a></li>
+        {% endif %}
+        <li class="nav-item"><a href="{% url 'contacto' %}" class="nav-link">Contactanos</a></li>
+     
 
-        <div class="nav__menu" id="nav-menu">
-            <ul class="nav__list">
-                <li class="nav__item"><a href="{% url 'index' %}" class="nav__link active">Inicio</a></li>
-                <li class="nav__item"><a href="{% url 'productos' %}" class="nav__link">Productos</a></li>
-                <li class="nav__item"><a href="{% url 'registrar' %}" class="nav__link">Registrarse</a></li>
-                <li class="nav__item"><a href="{% url 'iniciarsesion' %}" class="nav__link">Iniciar Sesión</a></li>
-                <li class="nav__item"><a href="{% url 'contacto' %}" class="nav__link">Contactanos</a></li>
+  
+      </ul>
+   
+        {% if user.is_authenticated %}
+        <li class="nav-item form-inline my-2 my-lg-0"><a href="{% url 'cerrarsesion' %}" class="nav-link">Cerrar sesión</a></li>
+        {% endif %}
 
-                <span class="hola-msg">Hola, {{request.user}} </span>
-                <span><a class="hola-msg" href="{% url 'cerrarsesion' %}">Cerrar Sesión</a></span>
-            </ul>
-        </div>
-        <i class='bx bxs-cart-add nav__cart' ></i>
-        <i class='bx bx-menu nav__toggle' id="nav-toggle" ></i>
-        <div>
-
-        </div>
-
-    </nav>
-
-</header>
-
+     
+    </div>
+  </nav>
    
 
    {% block contenido %}

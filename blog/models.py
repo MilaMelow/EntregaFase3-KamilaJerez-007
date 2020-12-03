@@ -7,15 +7,14 @@ class Categoria(models.Model):
     descripcion = models.CharField(max_length=200)
 
 class Producto(models.Model):
-    idProducto = models.IntegerField(primary_key=True)
     nombreProducto = models.CharField(max_length=50)
     precio = models.IntegerField()
     stock = models.CharField (max_length=100)
-    cantidad = models.IntegerField()
+    descripcion = models.TextField(null=True,blank=True)
     imagen = models.ImageField(null=True, upload_to='static/img/')
 
     def __str__(self):
-        return self.name
+        return self.nombreProducto
     
     @property
     def imageUrl(self):
