@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contenido %}
+
+<!-----Accesorios------->
+<section class="seccion-accesorios" id="accesorios">
+    <h2 class="section-title">Accesorios</h2>
+
+    <div class="accesorios__container bd-grid"> 
+        {% for producto in listaProductos %}
+        <div class="accesorios__d">  
+            {% if producto.imagen %}
+            <div class="accesorios__box"> 
+                <div class="nuevos__accesorios">Nuevo</div>
+                <img src="{{producto.imagen.url}}" alt="" class="accesorios_img">
+            {% endif %}
+            </div>
+
+            <div class="accesorios__data">
+                <h3 class="accesorios__name">{{producto.nombreProducto}}</h3>
+                <span class="accesorios__preci">{{producto.precio}}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+
+
+
+</section>
+
+
+{% endblock %}

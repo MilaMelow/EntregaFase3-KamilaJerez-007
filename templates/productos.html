@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contenido %}
+
+<!-----Productos Destacados------->
+<section class="seccion-destacados" id="destacados">
+    <h2 class="section-title">Productos Destacados</h2>
+
+    <div class="destacados__container bd-grid"> 
+        {% for producto in listaProductos %}
+        <div class="productos__destacados">  
+            {% if producto.imagen %}
+            
+            <div class="destacados__box"> 
+                <div class="nuevos__destacados">Nuevo</div>
+                <img src="{{producto.imagen.url}}" alt="" class="destacados_img">
+            {% endif %}
+            </div>
+            
+
+            <div class="destacados__data">
+                <h3 class="destacados__name">{{producto.nombreProducto}}</h3>
+                <span class="destacados__preci">{{producto.precio}}</span>
+            </div>
+
+            
+        </div>
+        {% endfor %}
+    </div>
+
+
+
+
+
+</section>
+
+
+
+{% endblock %}
+
+

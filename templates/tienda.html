@@ -1,0 +1,21 @@
+{% load static %}
+{% block content %}
+
+<div class="row">
+    {% for producto in productos %}
+
+    <div class="col-lg-4">
+        <img src="thumbnail" src="{% static 'img/Fondos/fondo1.jpg' %}">
+        <div class="box-element producto">
+            <h6><strong>{{nombreProducto}}</strong></h6>
+            <hr>
+
+            <button class="btn btn-outline-secondary add-btn">Añadir al carrito</button>
+            <a class="btn btn-outline-success" href="#">Ver</a>
+            <h4 style="display: inline-block; float: right"><strong>
+            ${{producto.precio|floatformat:2}}</strong></h4>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
