@@ -68,3 +68,10 @@ class Contacto (models.Model):
     def __str__(self):
         return self.nombre
         
+class Post(models.Model):
+   
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Post, self).save(*args, **kwargs)
+    

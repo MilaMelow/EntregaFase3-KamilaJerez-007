@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect,get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import  ContactoForm, ProductoForm, CreateUserForm
 from django import forms
@@ -16,6 +16,8 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 from django.contrib.auth.decorators import user_passes_test
+
+
 
 # Create your views here.
 def index(request):
@@ -211,4 +213,5 @@ def eliminar_producto(request,id):
         messages.error(request,'No se pudo eliminar el producto')
 
     return redirect('index')
+
 

@@ -1,14 +1,8 @@
-from django.test import TestCase, Cliente
-from django.urls import reverse
-from budget.models import Producto, Categoria 
+from django.test import TestCase
 
 
-class TestViews(TestCase)
-
-    def test_project_list_GET(self):
-        producto = Producto()
-        response = producto.get(reverse('list'))
-
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'listado_productos.htm')  
+class ViewsTestCase(TestCase):
+    def test_index_loads_properly(self):
+        response = self.client.get('127.0.0.1:8000')
+        self.assertEqual(response.status_code, 200)
         

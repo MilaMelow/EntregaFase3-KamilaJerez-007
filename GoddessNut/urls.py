@@ -14,10 +14,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from blog.views import index, productos, contacto,crear_producto,detalle_producto,modificar_producto ,eliminar_producto   , registrar, listado_productos, nuevo_producto, buscar_producto, buscar, iniciarsesion, cerrarsesion
+from django.urls import path, include
+from blog.views import index, productos, contacto, crear_producto, detalle_producto, modificar_producto, eliminar_producto, registrar, listado_productos, nuevo_producto, buscar_producto
+from blog.views import buscar, iniciarsesion, cerrarsesion
 from django.conf.urls.static import static
 from django.conf import settings
+
+#RESTFRAMEWORK
+from django.contrib.auth.models import User
+from rest_framework import routers, serializers, viewsets
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ['url', 'username', 'email', 'is_staff']
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+router = routers.DefaultRouter()
+router.register(r'usuarios', UserViewSet)
 
 urlpatterns = [
     path('iniciarsesion/', iniciarsesion, name='iniciarsesion'),
@@ -35,7 +52,13 @@ urlpatterns = [
     path('modificar_producto/<int:id>/',modificar_producto,name="Modificar producto"),
     path('eliminar_producto/<int:id>/',eliminar_producto,name="Eliminar producto"),
     path('detalle_producto/<int:id>/',detalle_producto,name="Detalle producto"),
+    path('api/', include('rest_framework.urls')),
+    path('', include(router.urls)),
+    path('api/', include('rest_framework.urls', namespace='rest_framework'))
 
+    #cuentas
+    
+    
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
