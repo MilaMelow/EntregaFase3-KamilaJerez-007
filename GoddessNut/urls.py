@@ -54,9 +54,8 @@ urlpatterns = [
     path('detalle_producto/<int:id>/',detalle_producto,name="Detalle producto"),
     path('api/', include('rest_framework.urls')),
     path('', include(router.urls)),
-    path('api/', include('rest_framework.urls', namespace='rest_framework'))
-
-    #cuentas
+    path('api/', include('rest_framework.urls', namespace='rest_framework')),
+    path('accounts/', include('allauth.urls')),
     
     
 ]
