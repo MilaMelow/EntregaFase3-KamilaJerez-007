@@ -46,6 +46,8 @@ self.addEventListener("fetch", event => {
 });
 */
 
+//Almacenamiento en el Cache
+
 self.addEventListener("fetch", function(event) {
     event.respondWith(
         fetch(event.request)

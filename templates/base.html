@@ -16,8 +16,54 @@
     <title>GoddessNut</title>
 
     {% load pwa %}
-    
     {% progressive_web_app_meta %}
+
+<!---------Aquí va a estar la configuración de las notificaciones Push--------->
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js"></script>
+    
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyALgI2yzx8tKoxem0MyJxMyoPWWtFriIlA",
+        authDomain: "goddessnut-949d6.firebaseapp.com",
+        projectId: "goddessnut-949d6",
+        storageBucket: "goddessnut-949d6.appspot.com",
+        messagingSenderId: "996418502214",
+        appId: "1:996418502214:web:95375ef55c6debc3881447"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    //Notificaciones Push
+
+    let messagin = firebase.messagin();
+
+    navigator.serviceWorker
+    .register('./serviceworker.js')
+    .then(function(register) {
+
+        messagin.useServiceWorker(register);
+
+
+        messagin.requestPermission()
+        .then(function(e) {
+            console.log("El usuario ha aceptado las notificaciones c:")
+        })
+
+        .catch(function(e){
+            console.log("El usuario no ha aceptado las notificaciones :c")
+        })
+
+  })
+
+</script>
 
 </head> 
 <body>
