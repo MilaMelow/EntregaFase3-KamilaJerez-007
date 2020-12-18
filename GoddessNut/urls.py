@@ -56,6 +56,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('api/', include('rest_framework.urls', namespace='rest_framework')),
     path('accounts/', include('allauth.urls')),
+    path('', include('pwa.urls')),
     
     
 ]

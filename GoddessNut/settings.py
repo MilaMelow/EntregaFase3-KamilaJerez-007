@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'django.contrib.sites',
+    'pwa',
 
     #allauth
     'allauth',
@@ -155,13 +156,34 @@ EMAIL_PORT=587
 EMAIL_HOST_USER="kamilajerezherrada"
 EMAIL_HOST_PASSWORD="nomanxesmivida"
 
-
+#RestFramework
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
 
+#PWA
+PWA_APP_NAME = "GoddessNut"
+PWA_APP_DESCRIPTION = "Página de ropita"
+PWA_APP_THEME_COLOR = '#3477f5'
+PWA_APP_BACKGROUND_COLOR = '#6699F7'
+
+PWA_APP_ICONS = [
+    {
+        "src": "/static/img/logo.png",
+        "sizes": "160x160"
+    }
+]
+
+PWA_APP_ICONS_APPLE = [
+    {
+        "src": "/static/img/logo.png",
+        "sizes": "160x160"
+    }
+]
+
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, "serviceworker.js")
 
 
 
